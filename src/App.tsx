@@ -124,7 +124,12 @@ export const App = () => {
           </Popup>
         </Marker>
         {hotels.map((hotel) => (
-          <HotelMarker key={hotel.id} hotel={hotel} setDetails={setDetails} />
+          <HotelMarker
+            key={hotel.id}
+            hotel={hotel}
+            selected={hotel.id === details.id}
+            setDetails={setDetails}
+          />
         ))}
       </MapContainer>
     </div>

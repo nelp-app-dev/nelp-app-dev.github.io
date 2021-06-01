@@ -1,11 +1,33 @@
 import { useEffect, useState } from 'react';
-import { Hotel } from '../HotelMarker/HotelMarker';
 import SimpleBar from 'simplebar-react';
 import 'simplebar/src/simplebar.css';
 import './Details.css';
+import { Fade } from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css';
+
+const Slideshow = ({ images }: { images: string[] }) => {
+  return (
+    <div className="slide-container">
+      <Fade>
+        {images.map((image, index) => (
+          <div key={`image-${index}`} className="each-slide" style={{ position: 'relative' }}>
+            <div className="image-container">
+              <img src={image} alt={`${index}`} />
+            </div>
+          </div>
+        ))}
+      </Fade>
+    </div>
+  );
+};
 
 export const Details = ({ details, onClose }: any) => {
   const [animate, setAnimate] = useState(false);
+
+  const close = () => {
+    setAnimate(false);
+    setTimeout(onClose, 300);
+  };
 
   useEffect(() => {
     setAnimate(details.id ? true : false);
@@ -15,14 +37,11 @@ export const Details = ({ details, onClose }: any) => {
 
   return (
     <div className={`details${animate ? ' details-shown' : ''}`}>
-      <div
-        onClick={() => {
-          setAnimate(false);
-          setTimeout(onClose, 300);
-        }}
-        className="details-overlay"
-      />
+      <div onClick={close} className="details-overlay" />
       <div className="details-content">
+        <div onClick={close} className="close">
+          ⨯
+        </div>
         <SimpleBar style={{ maxHeight: '100vh' }}>
           <h1 className="heading" style={{ fontSize: '1.7em', padding: '20px' }}>
             {details.name}
@@ -32,7 +51,7 @@ export const Details = ({ details, onClose }: any) => {
               <div className="price">$45</div>
               <div className="label">per night</div>
             </div>
-            <img src={details.images[0]} alt={details.name} />
+            <Slideshow images={details.images} />
           </div>
           <div
             style={{
@@ -40,7 +59,7 @@ export const Details = ({ details, onClose }: any) => {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              borderBottom: '1px solid #eee',
+              backgroundColor: '#eee',
             }}
           >
             <span
@@ -61,11 +80,17 @@ export const Details = ({ details, onClose }: any) => {
             </span>
           </div>
           <div style={{ padding: '20px', textAlign: 'center' }}>
-            <h3 className="heading" style={{ margin: '0 0 20px' }}>
-              Amenities
-            </h3>
+            <p style={{ margin: '0 0 20px' }}>
+              {[
+                details.address.street,
+                details.address.city,
+                details.address.country,
+                details.address.postal,
+              ].join(', ')}
+            </p>
             {details.amenities.map((amenity: string) => (
               <span
+                key={amenity}
                 style={{
                   display: 'inline-block',
                   padding: '3px 8px',

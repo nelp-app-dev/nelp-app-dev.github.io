@@ -2,6 +2,7 @@ import L, { DivIcon, Icon } from 'leaflet';
 import './HotelMarker.css';
 import { Marker, Popup, Tooltip } from 'react-leaflet';
 import blackPin from '../../images/black-pin.svg';
+import redPin from '../../images/red-pin.svg';
 
 export interface Hotel {
   id?: string;
@@ -16,13 +17,19 @@ export interface Hotel {
   rating: number;
 }
 
-const icon = new L.Icon({
+const black = new L.Icon({
   iconUrl: blackPin,
   iconSize: [30, 70],
   className: 'pin',
 });
 
-export const HotelMarker = ({ hotel, setDetails }: any) => {
+const red = new L.Icon({
+  iconUrl: redPin,
+  iconSize: [30, 70],
+  className: 'pin',
+});
+
+export const HotelMarker = ({ hotel, setDetails, selected }: any) => {
   return (
     <Marker
       eventHandlers={{
@@ -31,7 +38,7 @@ export const HotelMarker = ({ hotel, setDetails }: any) => {
         },
       }}
       position={[hotel.latitude, hotel.longitude]}
-      icon={icon}
+      icon={selected ? red : black}
     >
       <Tooltip direction="left" offset={[-15, 0]} opacity={1} permanent>
         ${hotel.min_rates.price.toFixed(2)}
