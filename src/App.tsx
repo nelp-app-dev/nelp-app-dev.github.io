@@ -7,19 +7,36 @@ import { Hotel, HotelMarker } from './features/HotelMarker/HotelMarker';
 import { LatLngTuple } from 'leaflet';
 import queryString from 'query-string';
 import axios, { CancelTokenSource } from 'axios';
+import ReactTooltip from 'react-tooltip';
+import { Details } from './features/Details/Details';
+
+function formatDate(date: Date) {
+  var d = new Date(date),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
+
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
+
+  return [year, month, day].join('/');
+}
 
 let cancelTokenSource: CancelTokenSource;
+
+const TODAY = new Date();
+const TWO_DAY_FROM_NOW = new Date(TODAY.getTime() + 60 * 60 * 48 * 1000);
 
 export const App = () => {
   const [filters, setFilters] = useState({
     latitude: 45.5017,
     longitude: -73.5673,
+    checkin: formatDate(TODAY),
+    checkout: formatDate(TWO_DAY_FROM_NOW),
     radius: 1000,
     rooms: 1,
     limit: 10,
     page: 1,
-    checkin: '2021-06-10',
-    checkout: '2021-06-12',
     language: 'en',
     currency: 'CAD',
     country: 'CA',
@@ -28,6 +45,7 @@ export const App = () => {
   });
   const [hotels, setHotels] = useState([] as Hotel[]);
   const [loading, setLoading] = useState(true);
+  const [details, setDetails] = useState({} as Hotel);
   // const [values, setValues] = useState(JSON.parse(localStorage.getItem('values') || '[50, 300]'));
 
   useEffect(() => {
@@ -47,8 +65,36 @@ export const App = () => {
   }, [filters, setHotels]);
 
   return (
-    <div>
+    <div style={{ position: 'relative' }}>
       <Loading loading={loading} />
+      <Details details={details} />
+      <div
+        style={{
+          position: 'absolute',
+          zIndex: 1000,
+          width: '100%',
+        }}
+      >
+        <div
+          style={{
+            backgroundColor: '#fff',
+            padding: '20px',
+            width: '300px',
+            margin: '20px auto',
+            fontWeight: 200,
+            textAlign: 'center',
+            fontSize: '14px',
+          }}
+        >
+          <div>
+            <div className="heading">Checkin - Checkout</div>
+            <span style={{ fontSize: '11px' }}>
+              {filters.checkin} - {filters.checkout}
+            </span>
+          </div>
+        </div>
+      </div>
+      <ReactTooltip />
       <RangeInput
         min_price={+filters.min_price}
         max_price={+filters.max_price}
@@ -78,7 +124,7 @@ export const App = () => {
           </Popup>
         </Marker>
         {hotels.map((hotel) => (
-          <HotelMarker key={hotel.id} hotel={hotel} />
+          <HotelMarker key={hotel.id} hotel={hotel} setDetails={setDetails} />
         ))}
       </MapContainer>
     </div>
