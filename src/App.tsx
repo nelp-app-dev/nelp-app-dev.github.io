@@ -69,7 +69,7 @@ export const App = () => {
         />
         <Marker position={bellCenterPosition as LatLngTuple}>
           <Popup>
-            <h3 style={{ textAlign: 'center' }}>Bell Center</h3>
+            <h3>Bell Center</h3>
           </Popup>
         </Marker>
         {hotels.filtered.map((hotel) => (

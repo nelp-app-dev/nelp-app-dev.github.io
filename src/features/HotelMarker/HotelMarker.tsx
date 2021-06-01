@@ -15,7 +15,7 @@ export const HotelMarker = ({ hotel }: { hotel: Hotel }) => {
         ${hotel.min_rates.price.toFixed(2)}
       </Tooltip>
       <Popup>
-        <h3 style={{ textAlign: 'center' }}>{hotel.name}</h3>
+        <h3>{hotel.name}</h3>
       </Popup>
     </Marker>
   );
