@@ -10,6 +10,10 @@ export interface Hotel {
   longitude?: number;
   min_rates?: { price?: number };
   images: string[];
+  amenities: string[];
+  review_count: number;
+  num_stars: number;
+  rating: number;
 }
 
 const icon = new L.Icon({

@@ -29,13 +29,13 @@ const TWO_DAY_FROM_NOW = new Date(TODAY.getTime() + 60 * 60 * 48 * 1000);
 
 export const App = () => {
   const [filters, setFilters] = useState({
-    latitude: 45.5017,
-    longitude: -73.5673,
+    latitude: 45.50076,
+    longitude: -73.633767,
     checkin: formatDate(TODAY),
     checkout: formatDate(TWO_DAY_FROM_NOW),
-    radius: 1000,
+    radius: 10000,
     rooms: 1,
-    limit: 10,
+    limit: 50,
     page: 1,
     language: 'en',
     currency: 'CAD',
@@ -67,7 +67,7 @@ export const App = () => {
   return (
     <div style={{ position: 'relative' }}>
       <Loading loading={loading} />
-      <Details details={details} />
+      <Details details={details} onClose={() => setDetails({} as Hotel)} />
       <div
         style={{
           position: 'absolute',
