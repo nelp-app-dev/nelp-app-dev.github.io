@@ -14,6 +14,7 @@ const createRoutineMachineLayer = (props: any) => {
 
   instance.on('routesfound', function (e) {
     var routes = e.routes;
+    console.log(routes);
     props.setDetailsRoute(routes[0]);
   });
 

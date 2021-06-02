@@ -37,7 +37,6 @@ export const Details = ({ details, onClose }: any) => {
 
   return (
     <div className={`details${animate ? ' details-shown' : ''}`}>
-      <div onClick={close} className="details-overlay" />
       <div className="details-content">
         <div onClick={close} className="close">
           ⨯
@@ -113,6 +112,13 @@ export const Details = ({ details, onClose }: any) => {
             >
               Itinerary to Bell Center
             </h3>
+            {details.route && (
+              <p>
+                {Math.round((details.route.summary.totalTime % 3600) / 60)} min (
+                {details.route.summary.totalDistance / 1000} km)
+              </p>
+            )}
+
             <div>
               {(details.route?.instructions || []).map((ins: any) => (
                 <div

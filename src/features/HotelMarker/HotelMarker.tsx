@@ -19,18 +19,6 @@ export interface Hotel {
   rating: number;
 }
 
-export const black = new L.Icon({
-  iconUrl: blackPin,
-  iconSize: [30, 70],
-  className: 'pin',
-});
-
-export const red = new L.Icon({
-  iconUrl: redPin,
-  iconSize: [30, 70],
-  className: 'pin',
-});
-
 export const HotelMarker = ({ hotel, setDetails, selected }: any) => {
   return (
     <Marker
@@ -40,14 +28,20 @@ export const HotelMarker = ({ hotel, setDetails, selected }: any) => {
         },
       }}
       position={[hotel.latitude, hotel.longitude]}
-      icon={selected ? red : black}
     >
       {selected && (
         <Routing hotel={hotel} setDetailsRoute={(route: any) => setDetails({ ...hotel, route })} />
       )}
 
-      <Tooltip direction="left" offset={[-15, 0]} opacity={1} permanent>
-        ${hotel.min_rates.price.toFixed(2)}
+      <Tooltip direction="left" offset={[-20, 0]} opacity={1} permanent>
+        <div
+          style={{
+            fontWeight: selected ? 700 : 'lighter',
+            fontSize: selected ? '15px' : 'inherit',
+          }}
+        >
+          ${hotel.min_rates.price.toFixed(2)}
+        </div>
       </Tooltip>
     </Marker>
   );

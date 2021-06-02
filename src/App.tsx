@@ -2,7 +2,7 @@ import { CSSProperties, useEffect, useState } from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { Loading } from './features/Loading/Loading';
 import { RangeInput } from './features/RangeInput/RangeInput';
-import { black, Hotel, HotelMarker } from './features/HotelMarker/HotelMarker';
+import { Hotel, HotelMarker } from './features/HotelMarker/HotelMarker';
 import { LatLngTuple } from 'leaflet';
 import ReactTooltip from 'react-tooltip';
 import { Details } from './features/Details/Details';
@@ -76,7 +76,7 @@ export const App = () => {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={CENTER} icon={black}>
+        <Marker position={CENTER}>
           <Popup offset={[0, -10]}>
             <h3>Bell Center</h3>
           </Popup>
