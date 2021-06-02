@@ -48,7 +48,7 @@ export const Details = ({ details, onClose }: any) => {
           </h1>
           <div style={{ height: '250px', position: 'relative' }}>
             <div className="ribbon">
-              <div className="price">$45</div>
+              <div className="price">${details.min_rates.price.toFixed(2)}</div>
               <div className="label">per night</div>
             </div>
             <Slideshow images={details.images} />
@@ -88,7 +88,7 @@ export const Details = ({ details, onClose }: any) => {
                 details.address.postal,
               ].join(', ')}
             </p>
-            {details.amenities.map((amenity: string) => (
+            {(details.amenities || []).map((amenity: string) => (
               <span
                 key={amenity}
                 style={{

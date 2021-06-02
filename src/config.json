@@ -1,4 +1,16 @@
 {
-  "bellCenterPosition": [45.50076, -73.633767],
-  "apiUrl": "https://api.stay22.com/v2/booking"
+  "apiUrl": "https://api.stay22.com/v2/booking",
+  "filters": {
+    "latitude": 45.50076,
+    "longitude": -73.633767,
+    "radius": 10000,
+    "rooms": 1,
+    "limit": 50,
+    "page": 1,
+    "language": "en",
+    "currency": "CAD",
+    "country": "CA",
+    "minprice": 50,
+    "maxprice": 300
+  }
 }

@@ -4,7 +4,7 @@ const STEP = 20;
 const MIN = 0;
 const MAX = 1000;
 
-export const RangeInput = ({ min_price, max_price, setValues }: any) => {
+export const RangeInput = ({ minprice, maxprice, setValues }: any) => {
   return (
     <div
       style={{
@@ -26,7 +26,7 @@ export const RangeInput = ({ min_price, max_price, setValues }: any) => {
         }}
       >
         <Range
-          values={[min_price, max_price]}
+          values={[minprice, maxprice]}
           step={STEP}
           min={MIN}
           max={MAX}
@@ -48,7 +48,7 @@ export const RangeInput = ({ min_price, max_price, setValues }: any) => {
                   height: '5px',
                   width: '100%',
                   background: getTrackBackground({
-                    values: [min_price, max_price],
+                    values: [minprice, maxprice],
                     colors: ['#ccc', '#548BF4', '#ccc'],
                     min: MIN,
                     max: MAX,
@@ -88,7 +88,7 @@ export const RangeInput = ({ min_price, max_price, setValues }: any) => {
                   backgroundColor: '#548BF4',
                 }}
               >
-                ${index === 0 ? min_price : max_price}
+                ${index === 0 ? minprice : maxprice}
               </div>
             </div>
           )}
