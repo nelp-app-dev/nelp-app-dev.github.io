@@ -5,16 +5,19 @@ import config from '../../config.json';
 
 const createRoutineMachineLayer = (props: any) => {
   const instance = L.Routing.control({
+    createMarker: () => {},
     waypoints: [
       L.latLng(props.hotel.latitude, props.hotel.longitude),
       L.latLng(config.filters.latitude, config.filters.longitude),
     ],
     show: false,
+    addWaypoints: false,
+    draggableWaypoints: false,
+    showAlternatives: false,
   } as L.Routing.RoutingControlOptions);
 
   instance.on('routesfound', function (e) {
     var routes = e.routes;
-    console.log(routes);
     props.setDetailsRoute(routes[0]);
   });
 

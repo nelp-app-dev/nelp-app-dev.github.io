@@ -23,6 +23,7 @@ export const RangeInput = ({ minprice, maxprice, setValues }: any) => {
           justifyContent: 'center',
           flexWrap: 'wrap',
           margin: '0 auto',
+          boxShadow: 'rgb(0 0 0 / 70%) 0px 0px 25px 0px',
         }}
       >
         <Range

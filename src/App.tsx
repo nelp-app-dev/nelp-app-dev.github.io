@@ -20,6 +20,7 @@ export const App = () => {
     minprice: localStorage.getItem('minprice') || config.filters.minprice,
     maxprice: localStorage.getItem('maxprice') || config.filters.maxprice,
   });
+
   const [hotels, setHotels] = useState([] as Hotel[]);
   const [loading, setLoading] = useState(true);
   const [details, setDetails] = useState({} as Hotel);
@@ -28,7 +29,12 @@ export const App = () => {
     setLoading(true);
     api.get(filters).then((data) => {
       setLoading(false);
-      setHotels(data.results);
+      setHotels(
+        data.results.filter(
+          (h: Hotel) =>
+            h.min_rates.price <= +filters.maxprice && h.min_rates.price >= +filters.minprice,
+        ),
+      );
     });
   }, [filters, setHotels]);
 
@@ -49,6 +55,7 @@ export const App = () => {
           fontWeight: 200,
           textAlign: 'center',
           fontSize: '14px',
+          boxShadow: 'rgb(0 0 0 / 70%) 0px 0px 25px 0px',
         }}
       >
         <div className="heading">Checkin - Checkout</div>
@@ -80,7 +87,7 @@ export const App = () => {
             <h3>Bell Center</h3>
           </Popup>
         </Marker>
-        {hotels.map((hotel) => (
+        {(details.id ? hotels.filter((hotel) => hotel.id === details.id) : hotels).map((hotel) => (
           <HotelMarker
             key={hotel.id}
             hotel={hotel}

@@ -115,7 +115,7 @@ export const Details = ({ details, onClose }: any) => {
             {details.route && (
               <p>
                 {Math.round((details.route.summary.totalTime % 3600) / 60)} min (
-                {details.route.summary.totalDistance / 1000} km)
+                {(details.route.summary.totalDistance / 1000).toFixed(2)} km)
               </p>
             )}
 
