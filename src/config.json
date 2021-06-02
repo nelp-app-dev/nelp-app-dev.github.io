@@ -9,8 +9,6 @@
     "page": 1,
     "language": "en",
     "currency": "CAD",
-    "country": "CA",
-    "minprice": 50,
-    "maxprice": 300
+    "country": "CA"
   }
 }

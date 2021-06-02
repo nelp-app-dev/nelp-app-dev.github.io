@@ -13,12 +13,15 @@ import { api } from './utils/axios';
 const CENTER = [config.filters.latitude, config.filters.longitude] as LatLngTuple;
 
 export const App = () => {
+  const [range, setRange] = useState({
+    minprice: localStorage.getItem('minprice') || 50,
+    maxprice: localStorage.getItem('maxprice') || 300,
+  });
+
   const [filters, setFilters] = useState({
     ...config.filters,
     checkin: formatDate(TODAY),
     checkout: formatDate(TWO_DAY_FROM_NOW),
-    minprice: localStorage.getItem('minprice') || config.filters.minprice,
-    maxprice: localStorage.getItem('maxprice') || config.filters.maxprice,
   });
 
   const [hotels, setHotels] = useState([] as Hotel[]);
@@ -32,11 +35,11 @@ export const App = () => {
       setHotels(
         data.results.filter(
           (h: Hotel) =>
-            h.min_rates.price <= +filters.maxprice && h.min_rates.price >= +filters.minprice,
+            h.min_rates.price <= +range.maxprice && h.min_rates.price >= +range.minprice,
         ),
       );
     });
-  }, [filters, setHotels]);
+  }, [filters, setHotels, range]);
 
   return (
     <div style={{ position: 'relative' }}>
@@ -64,19 +67,22 @@ export const App = () => {
         </span>
       </div>
       <ReactTooltip />
-      <RangeInput
-        minprice={+filters.minprice}
-        maxprice={+filters.maxprice}
-        setValues={(values: any) => {
-          localStorage.setItem('minprice', JSON.stringify(values[0]));
-          localStorage.setItem('maxprice', JSON.stringify(values[1]));
-          setFilters({
-            ...filters,
-            minprice: values[0],
-            maxprice: values[1],
-          });
-        }}
-      />
+      {!details.id && (
+        <RangeInput
+          minprice={range.minprice}
+          maxprice={range.maxprice}
+          setValues={(values: any) => {
+            setRange({
+              minprice: values[0],
+              maxprice: values[1],
+            });
+
+            localStorage.setItem('minprice', JSON.stringify(values[0]));
+            localStorage.setItem('maxprice', JSON.stringify(values[1]));
+            setFilters(filters);
+          }}
+        />
+      )}
       <MapContainer center={CENTER} zoom={13} scrollWheelZoom={false} style={{ height: '100vh' }}>
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
