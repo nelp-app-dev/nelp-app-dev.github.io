@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { MapContainer, Marker, TileLayer, Tooltip } from 'react-leaflet';
 import { Loading } from './features/Loading/Loading';
 import { RangeInput } from './features/RangeInput/RangeInput';
 import { Hotel, HotelMarker } from './features/HotelMarker/HotelMarker';
@@ -89,9 +89,9 @@ export const App = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Marker position={CENTER}>
-          <Popup offset={[0, -10]}>
-            <h3>Bell Center</h3>
-          </Popup>
+          <Tooltip direction="left" offset={[-20, 0]} opacity={1} permanent>
+            <div>Bell Center</div>
+          </Tooltip>
         </Marker>
         {(details.id ? hotels.filter((hotel) => hotel.id === details.id) : hotels).map((hotel) => (
           <HotelMarker
