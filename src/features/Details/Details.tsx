@@ -120,8 +120,9 @@ export const Details = ({ details, onClose }: any) => {
             )}
 
             <div>
-              {(details.route?.instructions || []).map((ins: any) => (
+              {(details.route?.instructions || []).map((ins: any, index: number) => (
                 <div
+                  key={`ins-${index}`}
                   style={{
                     display: 'flex',
                     justifyContent: 'space-between',

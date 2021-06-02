@@ -1,10 +1,6 @@
-import L from 'leaflet';
 import './HotelMarker.css';
 import { Marker, Tooltip } from 'react-leaflet';
-import blackPin from '../../images/black-pin.svg';
-import redPin from '../../images/red-pin.svg';
 import { Routing } from '../Routing/Routing';
-import { useEffect } from 'react';
 
 export interface Hotel {
   id?: string;

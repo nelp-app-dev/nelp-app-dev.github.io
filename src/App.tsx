@@ -1,4 +1,4 @@
-import { CSSProperties, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { Loading } from './features/Loading/Loading';
 import { RangeInput } from './features/RangeInput/RangeInput';
@@ -9,7 +9,6 @@ import { Details } from './features/Details/Details';
 import { formatDate, TODAY, TWO_DAY_FROM_NOW } from './utils/date';
 import config from './config.json';
 import { api } from './utils/axios';
-import { Routing } from './features/Routing/Routing';
 
 const CENTER = [config.filters.latitude, config.filters.longitude] as LatLngTuple;
 
