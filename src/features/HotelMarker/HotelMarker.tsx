@@ -42,7 +42,9 @@ export const HotelMarker = ({ hotel, setDetails, selected }: any) => {
       position={[hotel.latitude, hotel.longitude]}
       icon={selected ? red : black}
     >
-      {selected && <Routing hotel={hotel} />}
+      {selected && (
+        <Routing hotel={hotel} setDetailsRoute={(route: any) => setDetails({ ...hotel, route })} />
+      )}
 
       <Tooltip direction="left" offset={[-15, 0]} opacity={1} permanent>
         ${hotel.min_rates.price.toFixed(2)}

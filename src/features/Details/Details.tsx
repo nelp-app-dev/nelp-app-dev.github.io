@@ -79,7 +79,7 @@ export const Details = ({ details, onClose }: any) => {
               <strong>{details.num_stars}-star</strong> hotel
             </span>
           </div>
-          <div style={{ padding: '20px', textAlign: 'center' }}>
+          <div style={{ padding: '20px 20px 0', textAlign: 'center' }}>
             <p style={{ margin: '0 0 20px' }}>
               {[
                 details.address.street,
@@ -102,6 +102,34 @@ export const Details = ({ details, onClose }: any) => {
                 {amenity.replace(/_/g, ' ').replace(/^\w/, (c) => c.toUpperCase())}
               </span>
             ))}
+          </div>
+          <div style={{ padding: '0 20px 20px', textAlign: 'center' }}>
+            <h3
+              style={{
+                borderTop: '1px solid #eee',
+                borderBottom: '1px solid #eee',
+                padding: '10px 0',
+              }}
+            >
+              Itinerary to Bell Center
+            </h3>
+            <div>
+              {(details.route?.instructions || []).map((ins: any) => (
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    padding: '4px 0',
+                  }}
+                >
+                  <span style={{ fontSize: '13px', textAlign: 'left' }}>{ins.text}</span>
+                  <span style={{ fontSize: '11px  ' }}>
+                    {ins.distance ? ins.distance + ' m' : ''}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </SimpleBar>
       </div>

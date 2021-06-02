@@ -14,16 +14,7 @@ const createRoutineMachineLayer = (props: any) => {
 
   instance.on('routesfound', function (e) {
     var routes = e.routes;
-    console.log(routes);
-    // var summary = routes[0].summary;
-    // // alert distance and time in km and minutes
-    // alert(
-    //   'Total distance is ' +
-    //     summary.totalDistance / 1000 +
-    //     ' km and total time is ' +
-    //     Math.round((summary.totalTime % 3600) / 60) +
-    //     ' minutes',
-    // );
+    props.setDetailsRoute(routes[0]);
   });
 
   return instance;
